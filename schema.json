@@ -1,0 +1,653 @@
+{
+  "entities": [
+    {
+      "name": "Actor",
+      "displayName": "Actor",
+      "entityTypeId": 0,
+      "entityType": "Entity",
+      "description": "Actor",
+      "fields": [
+        {
+          "name": "First",
+          "isPrimaryKey": false,
+          "isForeignKey": false,
+          "isUnique": false,
+          "referenceType": "ManyToOne",
+          "sqlType": {
+            "name": "NVARCHAR",
+            "lengthLimit": 50
+          },
+          "isRequired": false,
+          "displayName": "FirstName",
+          "description": "",
+          "isSystemField": false,
+          "fieldDisplayType": "Basic",
+          "isAttachment": false,
+          "isRbacEnabled": false
+        },
+        {
+          "name": "Last",
+          "isPrimaryKey": false,
+          "isForeignKey": false,
+          "isUnique": false,
+          "referenceType": "ManyToOne",
+          "sqlType": {
+            "name": "NVARCHAR",
+            "lengthLimit": 50
+          },
+          "isRequired": false,
+          "displayName": "LastName",
+          "description": "",
+          "isSystemField": false,
+          "fieldDisplayType": "Basic",
+          "isAttachment": false,
+          "isRbacEnabled": false
+        },
+        {
+          "name": "Photo",
+          "isPrimaryKey": false,
+          "isForeignKey": true,
+          "isUnique": false,
+          "referenceEntity": {
+            "name": "EntityAttachment",
+            "displayName": "EntityAttachment",
+            "entityTypeId": 0,
+            "entityType": "Entity",
+            "isRbacEnabled": false
+          },
+          "referenceField": {
+            "definition": {
+              "name": "Name",
+              "isPrimaryKey": false,
+              "isForeignKey": false,
+              "isUnique": false,
+              "referenceType": "ManyToOne",
+              "sqlType": {
+                "name": "NVARCHAR"
+              },
+              "isRequired": false,
+              "displayName": "Name",
+              "isSystemField": false,
+              "fieldDisplayType": "Basic",
+              "isAttachment": false,
+              "isRbacEnabled": false
+            }
+          },
+          "referenceType": "ManyToOne",
+          "sqlType": {
+            "name": "UNIQUEIDENTIFIER"
+          },
+          "isRequired": false,
+          "displayName": "Photo",
+          "description": "",
+          "isSystemField": false,
+          "fieldDisplayType": "File",
+          "isAttachment": false,
+          "isRbacEnabled": false
+        }
+      ],
+      "isRbacEnabled": false
+    },
+    {
+      "name": "Movie",
+      "displayName": "Movie",
+      "entityTypeId": 0,
+      "entityType": "Entity",
+      "description": "Movies",
+      "fields": [
+        {
+          "name": "Comments",
+          "isPrimaryKey": false,
+          "isForeignKey": false,
+          "isUnique": false,
+          "referenceType": "ManyToOne",
+          "sqlType": {
+            "name": "NVARCHAR",
+            "lengthLimit": 200
+          },
+          "isRequired": false,
+          "displayName": "Comments",
+          "description": "",
+          "isSystemField": false,
+          "fieldDisplayType": "Basic",
+          "isAttachment": false,
+          "isRbacEnabled": false
+        },
+        {
+          "name": "Director",
+          "isPrimaryKey": false,
+          "isForeignKey": true,
+          "isUnique": false,
+          "referenceEntity": {
+            "name": "Actor",
+            "displayName": "Actor",
+            "entityTypeId": 0,
+            "entityType": "Entity",
+            "isRbacEnabled": false
+          },
+          "referenceField": {
+            "definition": {
+              "name": "First",
+              "isPrimaryKey": false,
+              "isForeignKey": false,
+              "isUnique": false,
+              "referenceType": "ManyToOne",
+              "sqlType": {
+                "name": "NVARCHAR",
+                "lengthLimit": 50
+              },
+              "isRequired": false,
+              "displayName": "FirstName",
+              "isSystemField": false,
+              "fieldDisplayType": "Basic",
+              "isAttachment": false,
+              "isRbacEnabled": false
+            }
+          },
+          "referenceType": "ManyToOne",
+          "sqlType": {
+            "name": "UNIQUEIDENTIFIER",
+            "lengthLimit": 200
+          },
+          "isRequired": false,
+          "displayName": "Director",
+          "description": "",
+          "isSystemField": false,
+          "fieldDisplayType": "Relationship",
+          "isAttachment": false,
+          "isRbacEnabled": false
+        },
+        {
+          "name": "Genre",
+          "isPrimaryKey": false,
+          "isForeignKey": false,
+          "isUnique": false,
+          "referenceChoiceSet": {
+            "name": "Genre",
+            "entityTypeId": 0,
+            "entityType": "Entity",
+            "isRbacEnabled": false
+          },
+          "referenceType": "ManyToOne",
+          "sqlType": {
+            "name": "NVARCHAR",
+            "lengthLimit": 200
+          },
+          "isRequired": false,
+          "displayName": "Genre",
+          "description": "",
+          "isSystemField": false,
+          "fieldDisplayType": "ChoiceSetMultiple",
+          "isAttachment": false,
+          "isRbacEnabled": false
+        },
+        {
+          "name": "ImdbId",
+          "isPrimaryKey": false,
+          "isForeignKey": false,
+          "isUnique": false,
+          "referenceType": "ManyToOne",
+          "sqlType": {
+            "name": "NVARCHAR",
+            "lengthLimit": 20
+          },
+          "isRequired": false,
+          "displayName": "ImdbId",
+          "description": "",
+          "isSystemField": false,
+          "fieldDisplayType": "Basic",
+          "isAttachment": false,
+          "isRbacEnabled": false
+        },
+        {
+          "name": "IsSilent",
+          "isPrimaryKey": false,
+          "isForeignKey": false,
+          "isUnique": false,
+          "referenceType": "ManyToOne",
+          "sqlType": {
+            "name": "BIT",
+            "lengthLimit": 200
+          },
+          "isRequired": false,
+          "displayName": "IsSilent",
+          "description": "",
+          "isSystemField": false,
+          "fieldDisplayType": "Basic",
+          "defaultValue": "false",
+          "isAttachment": false,
+          "isRbacEnabled": false
+        },
+        {
+          "name": "LeadActor",
+          "isPrimaryKey": false,
+          "isForeignKey": true,
+          "isUnique": false,
+          "referenceEntity": {
+            "name": "Actor",
+            "displayName": "Actor",
+            "entityTypeId": 0,
+            "entityType": "Entity",
+            "isRbacEnabled": false
+          },
+          "referenceField": {
+            "definition": {
+              "name": "First",
+              "isPrimaryKey": false,
+              "isForeignKey": false,
+              "isUnique": false,
+              "referenceType": "ManyToOne",
+              "sqlType": {
+                "name": "NVARCHAR",
+                "lengthLimit": 50
+              },
+              "isRequired": false,
+              "displayName": "FirstName",
+              "isSystemField": false,
+              "fieldDisplayType": "Basic",
+              "isAttachment": false,
+              "isRbacEnabled": false
+            }
+          },
+          "referenceType": "ManyToOne",
+          "sqlType": {
+            "name": "UNIQUEIDENTIFIER",
+            "lengthLimit": 200
+          },
+          "isRequired": false,
+          "displayName": "Lead Actor",
+          "description": "",
+          "isSystemField": false,
+          "fieldDisplayType": "Relationship",
+          "isAttachment": false,
+          "isRbacEnabled": false
+        },
+        {
+          "name": "LeadActress",
+          "isPrimaryKey": false,
+          "isForeignKey": true,
+          "isUnique": false,
+          "referenceEntity": {
+            "name": "Actor",
+            "displayName": "Actor",
+            "entityTypeId": 0,
+            "entityType": "Entity",
+            "isRbacEnabled": false
+          },
+          "referenceField": {
+            "definition": {
+              "name": "First",
+              "isPrimaryKey": false,
+              "isForeignKey": false,
+              "isUnique": false,
+              "referenceType": "ManyToOne",
+              "sqlType": {
+                "name": "NVARCHAR",
+                "lengthLimit": 50
+              },
+              "isRequired": false,
+              "displayName": "FirstName",
+              "isSystemField": false,
+              "fieldDisplayType": "Basic",
+              "isAttachment": false,
+              "isRbacEnabled": false
+            }
+          },
+          "referenceType": "ManyToOne",
+          "sqlType": {
+            "name": "UNIQUEIDENTIFIER",
+            "lengthLimit": 200
+          },
+          "isRequired": false,
+          "displayName": "Lead Actress",
+          "description": "",
+          "isSystemField": false,
+          "fieldDisplayType": "Relationship",
+          "isAttachment": false,
+          "isRbacEnabled": false
+        },
+        {
+          "name": "Link",
+          "isPrimaryKey": false,
+          "isForeignKey": false,
+          "isUnique": false,
+          "referenceType": "ManyToOne",
+          "sqlType": {
+            "name": "NVARCHAR",
+            "lengthLimit": 200
+          },
+          "isRequired": false,
+          "displayName": "Link",
+          "description": "",
+          "isSystemField": false,
+          "fieldDisplayType": "Basic",
+          "isAttachment": false,
+          "isRbacEnabled": false
+        },
+        {
+          "name": "Name",
+          "isPrimaryKey": false,
+          "isForeignKey": false,
+          "isUnique": false,
+          "referenceType": "ManyToOne",
+          "sqlType": {
+            "name": "NVARCHAR",
+            "lengthLimit": 200
+          },
+          "isRequired": true,
+          "displayName": "Name",
+          "description": "",
+          "isSystemField": false,
+          "fieldDisplayType": "Basic",
+          "isAttachment": false,
+          "isRbacEnabled": false
+        },
+        {
+          "name": "Poster",
+          "isPrimaryKey": false,
+          "isForeignKey": true,
+          "isUnique": false,
+          "referenceEntity": {
+            "name": "EntityAttachment",
+            "displayName": "EntityAttachment",
+            "entityTypeId": 0,
+            "entityType": "Entity",
+            "isRbacEnabled": false
+          },
+          "referenceField": {
+            "definition": {
+              "name": "Name",
+              "isPrimaryKey": false,
+              "isForeignKey": false,
+              "isUnique": false,
+              "referenceType": "ManyToOne",
+              "sqlType": {
+                "name": "NVARCHAR"
+              },
+              "isRequired": false,
+              "displayName": "Name",
+              "isSystemField": false,
+              "fieldDisplayType": "Basic",
+              "isAttachment": false,
+              "isRbacEnabled": false
+            }
+          },
+          "referenceType": "ManyToOne",
+          "sqlType": {
+            "name": "UNIQUEIDENTIFIER",
+            "lengthLimit": 1024
+          },
+          "isRequired": false,
+          "displayName": "Poster",
+          "description": "",
+          "isSystemField": false,
+          "fieldDisplayType": "File",
+          "isAttachment": false,
+          "isRbacEnabled": false
+        },
+        {
+          "name": "Rating",
+          "isPrimaryKey": false,
+          "isForeignKey": false,
+          "isUnique": false,
+          "referenceChoiceSet": {
+            "name": "Rating",
+            "entityTypeId": 0,
+            "entityType": "Entity",
+            "isRbacEnabled": false
+          },
+          "referenceType": "ManyToOne",
+          "sqlType": {
+            "name": "INT",
+            "maxValue": 1000000000000,
+            "minValue": -1000000000000
+          },
+          "isRequired": false,
+          "displayName": "Rating",
+          "description": "",
+          "isSystemField": false,
+          "fieldDisplayType": "ChoiceSetSingle",
+          "isAttachment": false,
+          "isRbacEnabled": false
+        },
+        {
+          "name": "Score",
+          "isPrimaryKey": false,
+          "isForeignKey": false,
+          "isUnique": false,
+          "referenceType": "ManyToOne",
+          "sqlType": {
+            "name": "DECIMAL",
+            "lengthLimit": 1000,
+            "maxValue": 10,
+            "minValue": 0,
+            "decimalPrecision": 1
+          },
+          "isRequired": false,
+          "displayName": "Score",
+          "description": "",
+          "isSystemField": false,
+          "fieldDisplayType": "Basic",
+          "isAttachment": false,
+          "isRbacEnabled": false
+        },
+        {
+          "name": "Storyline",
+          "isPrimaryKey": false,
+          "isForeignKey": true,
+          "isUnique": false,
+          "referenceEntity": {
+            "name": "EntityAttachment",
+            "displayName": "EntityAttachment",
+            "entityTypeId": 0,
+            "entityType": "Entity",
+            "isRbacEnabled": false
+          },
+          "referenceField": {
+            "definition": {
+              "name": "Name",
+              "isPrimaryKey": false,
+              "isForeignKey": false,
+              "isUnique": false,
+              "referenceType": "ManyToOne",
+              "sqlType": {
+                "name": "NVARCHAR"
+              },
+              "isRequired": false,
+              "displayName": "Name",
+              "isSystemField": false,
+              "fieldDisplayType": "Basic",
+              "isAttachment": false,
+              "isRbacEnabled": false
+            }
+          },
+          "referenceType": "ManyToOne",
+          "sqlType": {
+            "name": "UNIQUEIDENTIFIER",
+            "lengthLimit": 1024
+          },
+          "isRequired": false,
+          "displayName": "Storyline",
+          "description": "",
+          "isSystemField": false,
+          "fieldDisplayType": "File",
+          "isAttachment": false,
+          "isRbacEnabled": false
+        },
+        {
+          "name": "Year",
+          "isPrimaryKey": false,
+          "isForeignKey": false,
+          "isUnique": false,
+          "referenceType": "ManyToOne",
+          "sqlType": {
+            "name": "DATE",
+            "lengthLimit": 200
+          },
+          "isRequired": false,
+          "displayName": "Year",
+          "description": "",
+          "isSystemField": false,
+          "fieldDisplayType": "Basic",
+          "defaultValue": "2000-01-01T08:00:00.000Z",
+          "isAttachment": false,
+          "isRbacEnabled": false
+        }
+      ],
+      "isRbacEnabled": false
+    }
+  ],
+  "choicesets": [
+    {
+      "name": "CountryCode",
+      "displayName": "CountryCode",
+      "description": "",
+      "data": [
+        {
+          "DisplayName": "CN",
+          "Name": "CN",
+          "NumberId": 0
+        },
+        {
+          "DisplayName": "US",
+          "Name": "US",
+          "NumberId": 1
+        }
+      ]
+    },
+    {
+      "name": "Genre",
+      "displayName": "Genre",
+      "description": "Genre of a Movie",
+      "data": [
+        {
+          "DisplayName": "Action",
+          "Name": "Action",
+          "NumberId": 5
+        },
+        {
+          "DisplayName": "Adventure",
+          "Name": "Adventure",
+          "NumberId": 12
+        },
+        {
+          "DisplayName": "Animation",
+          "Name": "Animation",
+          "NumberId": 17
+        },
+        {
+          "DisplayName": "Biography",
+          "Name": "Biography",
+          "NumberId": 9
+        },
+        {
+          "DisplayName": "Comedy",
+          "Name": "Comedy",
+          "NumberId": 19
+        },
+        {
+          "DisplayName": "Crime",
+          "Name": "Crime",
+          "NumberId": 8
+        },
+        {
+          "DisplayName": "Documentary",
+          "Name": "Documentary",
+          "NumberId": 4
+        },
+        {
+          "DisplayName": "Drama",
+          "Name": "Drama",
+          "NumberId": 0
+        },
+        {
+          "DisplayName": "Family",
+          "Name": "Family",
+          "NumberId": 13
+        },
+        {
+          "DisplayName": "Fantasy",
+          "Name": "Fantasy",
+          "NumberId": 14
+        },
+        {
+          "DisplayName": "History",
+          "Name": "History",
+          "NumberId": 2
+        },
+        {
+          "DisplayName": "Horror",
+          "Name": "Horror",
+          "NumberId": 6
+        },
+        {
+          "DisplayName": "Musical",
+          "Name": "Musical",
+          "NumberId": 15
+        },
+        {
+          "DisplayName": "Mystery",
+          "Name": "Mystery",
+          "NumberId": 20
+        },
+        {
+          "DisplayName": "Romance",
+          "Name": "Romance",
+          "NumberId": 11
+        },
+        {
+          "DisplayName": "SciFi",
+          "Name": "SciFi",
+          "NumberId": 1
+        },
+        {
+          "DisplayName": "Thriller",
+          "Name": "Thriller",
+          "NumberId": 16
+        },
+        {
+          "DisplayName": "War",
+          "Name": "War",
+          "NumberId": 3
+        },
+        {
+          "DisplayName": "Western",
+          "Name": "Western",
+          "NumberId": 18
+        }
+      ]
+    },
+    {
+      "name": "Rating",
+      "displayName": "Rating",
+      "description": "Rating of a Movie",
+      "data": [
+        {
+          "DisplayName": "G",
+          "Name": "G",
+          "NumberId": 4
+        },
+        {
+          "DisplayName": "NC-17",
+          "Name": "NC17",
+          "NumberId": 0
+        },
+        {
+          "DisplayName": "PG",
+          "Name": "PG",
+          "NumberId": 3
+        },
+        {
+          "DisplayName": "PG-13",
+          "Name": "PG13",
+          "NumberId": 2
+        },
+        {
+          "DisplayName": "R",
+          "Name": "R",
+          "NumberId": 1
+        }
+      ]
+    }
+  ]
+}

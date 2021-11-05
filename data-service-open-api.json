@@ -1,0 +1,2349 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Entity Store imdb",
+    "description": "OpenAPI Specification for imdb entity store."
+  },
+  "paths": {
+    "/EntityService/Actor/read": {
+      "get": {
+        "tags": [
+          "Actor"
+        ],
+        "description": "Reads all Actor records.",
+        "operationId": "Get Actor records",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start",
+            "description": "(Optional) Specifies the number of records to skip before starting to return records from the query. Can be used along with limit property to implement pagination. Default value is 0 if not specified. The sort order is based on Id field.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "0"
+            },
+            "required": false
+          },
+          {
+            "name": "limit",
+            "description": "(Optional) Specifies the maximum number of records to read from service. Can be used along with start property to implement pagination. Default value is 100 if not specified. The maximum value can be 1000.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "20"
+            },
+            "required": false
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActorQueryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Actor/read/{id}": {
+      "get": {
+        "tags": [
+          "Actor"
+        ],
+        "description": "Retrieves a single Actor record by Id.",
+        "operationId": "Get Actor",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Actor"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Actor/query": {
+      "post": {
+        "tags": [
+          "Actor"
+        ],
+        "description": "Query Actor records.",
+        "operationId": "Query Actor",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActorQueryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Actor/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Actor"
+        ],
+        "description": "Deletes an existing Actor record.",
+        "operationId": "Delete Actor",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Boolean"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Actor/update/{id}": {
+      "post": {
+        "tags": [
+          "Actor"
+        ],
+        "description": "Updates an existing Actor record.",
+        "operationId": "Update Actor",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Actor"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Actor"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Actor/insert": {
+      "post": {
+        "tags": [
+          "Actor"
+        ],
+        "description": "Creates a new Actor record.",
+        "operationId": "Add Actor",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Actor"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Actor"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Actor/insert-batch": {
+      "post": {
+        "tags": [
+          "Actor"
+        ],
+        "description": "Creates multiple new Actor records in a batch.",
+        "operationId": "Batch Add Actor",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          },
+          {
+            "name": "failOnFirst",
+            "description": "(Optional) Specifies if Data Service should stop processing the remaining records when a record fails to process. If set to true, Data Service will stop processing records on the first failure. This property only supports Boolean values (true, false).",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "format": "string",
+              "default": "false"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Actor"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActorBatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Actor/update-batch": {
+      "post": {
+        "tags": [
+          "Actor"
+        ],
+        "description": "Updates multiple existing Actor records in a batch.",
+        "operationId": "Batch Update Actor",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          },
+          {
+            "name": "failOnFirst",
+            "description": "(Optional) Specifies if Data Service should stop processing the remaining records when a record fails to process. If set to true, Data Service will stop processing records on the first failure. This property only supports Boolean values (true, false).",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "format": "string",
+              "default": "false"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Actor"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActorBatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Actor/delete-batch": {
+      "post": {
+        "tags": [
+          "Actor"
+        ],
+        "description": "Deletes multiple existing Actor records in a batch.",
+        "operationId": "Batch Delete Actor",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "failOnFirst",
+            "description": "(Optional) Specifies if Data Service should stop processing the remaining records when a record fails to process. If set to true, Data Service will stop processing records on the first failure. This property only supports Boolean values (true, false).",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "format": "string",
+              "default": "false"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActorBatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/Attachment/Actor/{recordId}/{fieldName}": {
+      "get": {
+        "tags": [
+          "Actor"
+        ],
+        "description": "Downloads file from the specified field of an existing Actor record.",
+        "operationId": "Download file from Actor",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "fieldName",
+            "description": "The name of the File field to modify for the specified record in entity $Actor. The name has to be a valid field and is case-sensitive.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "default": null
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Actor"
+        ],
+        "description": "Uploads file to the specified field of an existing Actor record.",
+        "operationId": "Upload file to Actor",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "fieldName",
+            "description": "The name of the File field to modify for the specified record in entity $Actor. The name has to be a valid field and is case-sensitive.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Actor"
+        ],
+        "description": "Deletes file from the specified field of an existing Actor record.",
+        "operationId": "Delete file from Actor",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "fieldName",
+            "description": "The name of the File field to modify for the specified record in entity $Actor. The name has to be a valid field and is case-sensitive.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Movie/read": {
+      "get": {
+        "tags": [
+          "Movie"
+        ],
+        "description": "Reads all Movie records.",
+        "operationId": "Get Movie records",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start",
+            "description": "(Optional) Specifies the number of records to skip before starting to return records from the query. Can be used along with limit property to implement pagination. Default value is 0 if not specified. The sort order is based on Id field.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "0"
+            },
+            "required": false
+          },
+          {
+            "name": "limit",
+            "description": "(Optional) Specifies the maximum number of records to read from service. Can be used along with start property to implement pagination. Default value is 100 if not specified. The maximum value can be 1000.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "20"
+            },
+            "required": false
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieQueryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Movie/read/{id}": {
+      "get": {
+        "tags": [
+          "Movie"
+        ],
+        "description": "Retrieves a single Movie record by Id.",
+        "operationId": "Get Movie",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Movie"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Movie/query": {
+      "post": {
+        "tags": [
+          "Movie"
+        ],
+        "description": "Query Movie records.",
+        "operationId": "Query Movie",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieQueryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Movie/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Movie"
+        ],
+        "description": "Deletes an existing Movie record.",
+        "operationId": "Delete Movie",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Boolean"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Movie/update/{id}": {
+      "post": {
+        "tags": [
+          "Movie"
+        ],
+        "description": "Updates an existing Movie record.",
+        "operationId": "Update Movie",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Movie"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Movie"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Movie/insert": {
+      "post": {
+        "tags": [
+          "Movie"
+        ],
+        "description": "Creates a new Movie record.",
+        "operationId": "Add Movie",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Movie"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Movie"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Movie/insert-batch": {
+      "post": {
+        "tags": [
+          "Movie"
+        ],
+        "description": "Creates multiple new Movie records in a batch.",
+        "operationId": "Batch Add Movie",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          },
+          {
+            "name": "failOnFirst",
+            "description": "(Optional) Specifies if Data Service should stop processing the remaining records when a record fails to process. If set to true, Data Service will stop processing records on the first failure. This property only supports Boolean values (true, false).",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "format": "string",
+              "default": "false"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Movie"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieBatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Movie/update-batch": {
+      "post": {
+        "tags": [
+          "Movie"
+        ],
+        "description": "Updates multiple existing Movie records in a batch.",
+        "operationId": "Batch Update Movie",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          },
+          {
+            "name": "failOnFirst",
+            "description": "(Optional) Specifies if Data Service should stop processing the remaining records when a record fails to process. If set to true, Data Service will stop processing records on the first failure. This property only supports Boolean values (true, false).",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "format": "string",
+              "default": "false"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Movie"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieBatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Movie/delete-batch": {
+      "post": {
+        "tags": [
+          "Movie"
+        ],
+        "description": "Deletes multiple existing Movie records in a batch.",
+        "operationId": "Batch Delete Movie",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "failOnFirst",
+            "description": "(Optional) Specifies if Data Service should stop processing the remaining records when a record fails to process. If set to true, Data Service will stop processing records on the first failure. This property only supports Boolean values (true, false).",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "format": "string",
+              "default": "false"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieBatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/Attachment/Movie/{recordId}/{fieldName}": {
+      "get": {
+        "tags": [
+          "Movie"
+        ],
+        "description": "Downloads file from the specified field of an existing Movie record.",
+        "operationId": "Download file from Movie",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "fieldName",
+            "description": "The name of the File field to modify for the specified record in entity $Movie. The name has to be a valid field and is case-sensitive.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "default": null
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Movie"
+        ],
+        "description": "Uploads file to the specified field of an existing Movie record.",
+        "operationId": "Upload file to Movie",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "fieldName",
+            "description": "The name of the File field to modify for the specified record in entity $Movie. The name has to be a valid field and is case-sensitive.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Movie"
+        ],
+        "description": "Deletes file from the specified field of an existing Movie record.",
+        "operationId": "Delete file from Movie",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "fieldName",
+            "description": "The name of the File field to modify for the specified record in entity $Movie. The name has to be a valid field and is case-sensitive.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/SystemUser/read": {
+      "get": {
+        "tags": [
+          "SystemUser"
+        ],
+        "description": "Reads all SystemUser records.",
+        "operationId": "Get SystemUser records",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start",
+            "description": "(Optional) Specifies the number of records to skip before starting to return records from the query. Can be used along with limit property to implement pagination. Default value is 0 if not specified. The sort order is based on Id field.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "0"
+            },
+            "required": false
+          },
+          {
+            "name": "limit",
+            "description": "(Optional) Specifies the maximum number of records to read from service. Can be used along with start property to implement pagination. Default value is 100 if not specified. The maximum value can be 1000.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "20"
+            },
+            "required": false
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemUserQueryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/SystemUser/read/{id}": {
+      "get": {
+        "tags": [
+          "SystemUser"
+        ],
+        "description": "Retrieves a single SystemUser record by Id.",
+        "operationId": "Get SystemUser",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemUser"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/SystemUser/query": {
+      "post": {
+        "tags": [
+          "SystemUser"
+        ],
+        "description": "Query SystemUser records.",
+        "operationId": "Query SystemUser",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemUserQueryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://alpha.uipath.com/entity/imdb/dataservice_/api"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Genre": {
+        "type": "integer",
+        "x-uipath-dataservice-type": "choiceset",
+        "enum": [
+          5,
+          12,
+          17,
+          9,
+          19,
+          8,
+          4,
+          0,
+          13,
+          14,
+          2,
+          6,
+          15,
+          20,
+          11,
+          1,
+          16,
+          3,
+          18
+        ],
+        "x-enum-varnames": [
+          "Action",
+          "Adventure",
+          "Animation",
+          "Biography",
+          "Comedy",
+          "Crime",
+          "Documentary",
+          "Drama",
+          "Family",
+          "Fantasy",
+          "History",
+          "Horror",
+          "Musical",
+          "Mystery",
+          "Romance",
+          "SciFi",
+          "Thriller",
+          "War",
+          "Western"
+        ]
+      },
+      "Rating": {
+        "type": "integer",
+        "x-uipath-dataservice-type": "choiceset",
+        "enum": [
+          4,
+          0,
+          3,
+          2,
+          1
+        ],
+        "x-enum-varnames": [
+          "G",
+          "NC17",
+          "PG",
+          "PG13",
+          "R"
+        ]
+      },
+      "UserType": {
+        "type": "integer",
+        "x-uipath-dataservice-type": "choiceset",
+        "enum": [
+          1,
+          2,
+          0
+        ],
+        "x-enum-varnames": [
+          "Group",
+          "Robot",
+          "User"
+        ]
+      },
+      "Actor": {
+        "type": "object",
+        "x-uipath-dataservice-type": "entity",
+        "properties": {
+          "CreatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": false
+          },
+          "CreateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": false
+          },
+          "First": {
+            "type": "string",
+            "format": "",
+            "nullable": true
+          },
+          "Id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": false
+          },
+          "Last": {
+            "type": "string",
+            "format": "",
+            "nullable": true
+          },
+          "Photo": {
+            "$ref": "#/components/schemas/EntityAttachment"
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "UpdateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "required": [
+        ]
+      },
+      "ActorQueryResponse": {
+        "type": "object",
+        "properties": {
+          "TotalRecordCount": {
+            "description": "The total number of records matching the specified query filters in the service. Can be used with start and limit properties of QueryRequest to implement pagination.",
+            "type": "integer",
+            "format": "int64"
+          },
+          "Value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Actor"
+            }
+          }
+        }
+      },
+      "ActorBatchResponse": {
+        "type": "object",
+        "properties": {
+          "successRecords": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Actor"
+            }
+          },
+          "failureRecords": {
+            "type": "object",
+            "properties": {
+              "error": {
+                "type": "string"
+              },
+              "record": {
+                "$ref": "#/components/schemas/Actor"
+              }
+            }
+          }
+        }
+      },
+      "Movie": {
+        "type": "object",
+        "x-uipath-dataservice-type": "entity",
+        "properties": {
+          "Comments": {
+            "type": "string",
+            "format": "",
+            "nullable": true
+          },
+          "CreatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": false
+          },
+          "CreateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": false
+          },
+          "Director": {
+            "$ref": "#/components/schemas/Actor"
+          },
+          "Genre": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Genre"
+            }
+          },
+          "Id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": false
+          },
+          "ImdbId": {
+            "type": "string",
+            "format": "",
+            "nullable": true
+          },
+          "IsSilent": {
+            "type": "boolean",
+            "format": "",
+            "nullable": true
+          },
+          "LeadActor": {
+            "$ref": "#/components/schemas/Actor"
+          },
+          "LeadActress": {
+            "$ref": "#/components/schemas/Actor"
+          },
+          "Link": {
+            "type": "string",
+            "format": "",
+            "nullable": true
+          },
+          "Name": {
+            "type": "string",
+            "format": "",
+            "nullable": false
+          },
+          "Poster": {
+            "$ref": "#/components/schemas/EntityAttachment"
+          },
+          "Rating": {
+            "$ref": "#/components/schemas/Rating"
+          },
+          "Score": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "Storyline": {
+            "$ref": "#/components/schemas/EntityAttachment"
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "UpdateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "Year": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          }
+        },
+        "required": [
+          "Name"
+        ]
+      },
+      "MovieQueryResponse": {
+        "type": "object",
+        "properties": {
+          "TotalRecordCount": {
+            "description": "The total number of records matching the specified query filters in the service. Can be used with start and limit properties of QueryRequest to implement pagination.",
+            "type": "integer",
+            "format": "int64"
+          },
+          "Value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Movie"
+            }
+          }
+        }
+      },
+      "MovieBatchResponse": {
+        "type": "object",
+        "properties": {
+          "successRecords": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Movie"
+            }
+          },
+          "failureRecords": {
+            "type": "object",
+            "properties": {
+              "error": {
+                "type": "string"
+              },
+              "record": {
+                "$ref": "#/components/schemas/Movie"
+              }
+            }
+          }
+        }
+      },
+      "SystemUser": {
+        "type": "object",
+        "x-uipath-dataservice-type": "entity",
+        "properties": {
+          "CreateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": false
+          },
+          "Email": {
+            "type": "string",
+            "format": "",
+            "nullable": true
+          },
+          "Id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": false
+          },
+          "IsActive": {
+            "type": "boolean",
+            "format": "",
+            "nullable": false
+          },
+          "Name": {
+            "type": "string",
+            "format": "",
+            "nullable": false
+          },
+          "Type": {
+            "$ref": "#/components/schemas/UserType"
+          },
+          "UpdateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "SystemUserQueryResponse": {
+        "type": "object",
+        "properties": {
+          "TotalRecordCount": {
+            "description": "The total number of records matching the specified query filters in the service. Can be used with start and limit properties of QueryRequest to implement pagination.",
+            "type": "integer",
+            "format": "int64"
+          },
+          "Value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SystemUser"
+            }
+          }
+        }
+      },
+      "SystemUserBatchResponse": {
+        "type": "object",
+        "properties": {
+          "successRecords": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SystemUser"
+            }
+          },
+          "failureRecords": {
+            "type": "object",
+            "properties": {
+              "error": {
+                "type": "string"
+              },
+              "record": {
+                "$ref": "#/components/schemas/SystemUser"
+              }
+            }
+          }
+        }
+      },
+      "QueryRequest": {
+        "type": "object",
+        "properties": {
+          "selectedFields": {
+            "description": "(Optional) Specifies the list of fields to be returned for each record from the query. If left as null or the list is empty, all fields for the record will be returned. Default is null.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "filterGroup": {
+            "$ref": "#/components/schemas/QueryFilterGroup"
+          },
+          "start": {
+            "description": "(Optional) Specifies the number of records to skip before starting to return records from the query. Can be used along with limit property to implement pagination. Default value is 0 if not specified. The default sort order is based on Id field, use sortOptions to change the sort order.",
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "limit": {
+            "description": "(Optional) Specifies the maximum number of records to read from service. Can be used along with start property to implement pagination. Default value is 100 if not specified. The maximum value can be 1000.",
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "sortOptions": {
+            "description": "(Optional) Specifies the list of fields used to sort returned records. The default sort order is based on Id field if sortOptions are not provided.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortOption"
+            }
+          }
+        }
+      },
+      "SortOption": {
+        "type": "object",
+        "properties": {
+          "fieldName": {
+            "description": "Specifies the name of the field used to sort returned records. The name has to be a valid field and is case-sensitive.",
+            "type": "string",
+            "format": ""
+          },
+          "isDescending": {
+            "type": "boolean",
+            "format": ""
+          }
+        }
+      },
+      "QueryFilterGroup": {
+        "type": "object",
+        "properties": {
+          "logicalOperator": {
+            "description": "Specifies if All (AND) or Any (OR) filters and filter groups should be used to filter records. Use 0 for All (AND) and 1 for Any (OR). Default is 0.",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 1
+          },
+          "queryFilters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QueryFilter"
+            }
+          },
+          "filterGroups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QueryFilterGroup"
+            }
+          }
+        }
+      },
+      "QueryFilter": {
+        "type": "object",
+        "properties": {
+          "fieldName": {
+            "description": "Specifies the name of the field for filter operation.",
+            "type": "string",
+            "format": ""
+          },
+          "operator": {
+            "description": "Specifies the operator used for filter operation. Supported operators include: contains, not contains, startswith, endswith, =, !=, >, <, >=, <=, in, not in. Not all operators are supported for all field types.",
+            "type": "string",
+            "format": ""
+          },
+          "value": {
+            "description": "Specifies the value to use for the filter operation. An empty value with '=' operator does a null check and with '!=' operator does a not null check.",
+            "type": "string",
+            "format": ""
+          }
+        }
+      },
+      "Boolean": {
+        "type": "boolean"
+      },
+      "Id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "EntityAttachment": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "format": ""
+          },
+          "Path": {
+            "type": "string",
+            "format": ""
+          },
+          "Size": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "Type": {
+            "type": "string",
+            "format": ""
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      },
+      "oauth2": {
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "tokenUrl": "https://alpha.uipath.com/identity_/connect/token",
+            "authorizationUrl": "https://alpha.uipath.com/identity_/connect/authorize",
+            "scopes": {
+              "DataService.Schema.Read": "Entity Schema Read",
+              "DataService.Data.Read": "Entity Data Read",
+              "DataService.Data.Write": "Entity Data Write"
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "UnauthorizedError": {
+        "description": "You are not authenticated to access Data Service. Make sure your Assistant or Robot is connected to a modern folder in your account."
+      },
+      "ForbiddenError": {
+        "description": "You don't have permission to access the entity, field or record or you are using an unsupported robot type. Please contact your administrator for necessary permissions."
+      }
+    }
+  }
+}
