@@ -10,13 +10,24 @@ namespace UiPath.DataService.Samples
     {
         static async Task Main(string[] args)
         {
+            var dataServiceUrl = "https://cloud.uipath.com/entity/hr/dataservice_/api";
+            // This sample only supports login with email
+            var tokenProvider = new OpenApiTokenProvider(dataServiceUrl, new OpenApiCredentials()
+            {
+                ClientId = "", // external app id
+                ClientSecret = "", // external app secret
+                Email = "", // automation cloud user
+                Password = "", // automation cloud password
+                RedirectUri = "", // Redirect uri
+                Scope = "DataService.Schema.Read DataService.Data.Read DataService.Data.Write offline_access", //Space separated scopes, offline_access is for getting refresh token
+            });
+            var accessToken = await tokenProvider.GetAccessTokenAsync();
+            Console.WriteLine($"Access token [{accessToken.AccessToken}]");
+            Console.WriteLine($"Refresh token [{accessToken.RefreshToken}]");
+            Console.WriteLine($"Scope[{accessToken.Scope}]");
+            Console.WriteLine($"ExpiresIn [{accessToken.ExpiresIn}] seconds");
 
-            string dataServiceUrl = "https://alpha.uipath.com/entity/hr/dataservice_/api";
-
-            // If have access token already, could copy and past the token to BuildTokenAuthenticationHandler and uncomment it
-            // var tokenAuthenticationHandler = BuildTokenAuthenticationHandler(); 
-            var tokenAuthenticationHandler = BuildTokenAuthenticationHandler(dataServiceUrl);
-            var client = new DataServiceOpenApiClient(new HttpClient(tokenAuthenticationHandler)) { BaseUrl = dataServiceUrl };
+            var client = new DataServiceOpenApiClient(new HttpClient(new TokenAuthenticationHandler(accessToken.AccessToken))) { BaseUrl = dataServiceUrl };
 
             var leadActor = await GetOrCreateActor(client, "Andy", "Lau");
             Console.WriteLine(leadActor.Id);
@@ -24,28 +35,8 @@ namespace UiPath.DataService.Samples
             var director = await GetOrCreateActor(client, "Andy", "Lau");
             Console.WriteLine(director.Id);
 
-            var movie = await GetOrCreateMovie(client, "", director, leadActor);
+            var movie = await GetOrCreateMovie(client, "Test", director, leadActor);
             Console.WriteLine(movie.Id);
-        }
-
-        private static TokenAuthenticationHandler BuildTokenAuthenticationHandler()
-        {
-            return new TokenAuthenticationHandler("token");
-        }
-
-        private static TokenAuthenticationHandler BuildTokenAuthenticationHandler(string dataServiceUrl)
-        {
-            // Confidential external application registered in UiPath Automation Cloud
-            var credentials = new OpenApiCredentials()
-            {
-                ClientId = "",
-                ClientSecret = "",
-                Email = "",
-                Password = "",
-                RedirectUri = "",
-                Scope = "", //Space separated scopes like "DataService.Schema.Read DataService.Data.Read DataService.Data.Write";
-            };
-            return new TokenAuthenticationHandler(dataServiceUrl, credentials);
         }
 
         private static async Task<Actor> GetOrCreateActor(DataServiceOpenApiClient client, string first, string last)

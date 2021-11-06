@@ -7,11 +7,10 @@ using PlaywrightSharp;
 
 namespace UiPath.DataService.Samples
 {
-    public sealed class OpenApiTokenProvider
+    public class OpenApiTokenProvider
     {
         private readonly OpenApiCredentials _credentials;
         private readonly string _identityUri;
-        private string _token;
 
         public OpenApiTokenProvider(string dataServiceUrl, OpenApiCredentials credentials)
         {
@@ -20,16 +19,7 @@ namespace UiPath.DataService.Samples
             _identityUri = $"{uri.Scheme}://{uri.Host}/identity_";
         }
 
-        public async Task<string> GetAccessTokenAsync()
-        {
-            if (string.IsNullOrEmpty(_token))
-            {
-                _token = await GetNewAccessTokenAsync();
-            }
-            return _token;
-        }
-
-        private async Task<string> GetNewAccessTokenAsync()
+        public async Task<OpenApiAccessToken> GetAccessTokenAsync()
         {
             var code = await LoginIntoAutomationCloud();
             var tokenRequest = new AuthorizationCodeTokenRequest()
@@ -51,7 +41,19 @@ namespace UiPath.DataService.Samples
 
                 throw new Exception(response.Error);
             }
-            return response.AccessToken;
+
+            if (response.IsError)
+            {
+                throw new Exception(response.ErrorDescription);
+            }
+            return new OpenApiAccessToken()
+            {
+                AccessToken = response.AccessToken,
+                TokenType = response.TokenType,
+                Scope = response.Scope,
+                ExpiresIn = response.ExpiresIn,
+                RefreshToken = response.RefreshToken,
+            };
         }
 
         private async Task<string> LoginIntoAutomationCloud()
@@ -73,20 +75,4 @@ namespace UiPath.DataService.Samples
             return code;
         }
     }
-
-    public class OpenApiCredentials
-    {
-        public string ClientId { get; set; }
-
-        public string ClientSecret { get; set; }
-
-        public string Scope { get; set; }
-
-        public string Email { get; set; }
-
-        public string Password { get; set; }
-
-        public string RedirectUri { get; set; }
-    }
-
 }
