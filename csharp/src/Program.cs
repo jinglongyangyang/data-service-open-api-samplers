@@ -11,8 +11,7 @@ namespace UiPath.DataService.Samples
         static async Task Main(string[] args)
         {
             var dataServiceUrl = "https://cloud.uipath.com/vz/vz/dataservice_/api";
-
-            var accessToken = await GetTokenByRefreshToken(dataServiceUrl, "");
+            var accessToken = await GetTokenByRefreshToken(dataServiceUrl);
             //var accessToken = await GetTokenByUserCredentials(dataServiceUrl);
             Console.WriteLine($"Access token [{accessToken.AccessToken}]");
             Console.WriteLine($"Refresh token [{accessToken.RefreshToken}]");
