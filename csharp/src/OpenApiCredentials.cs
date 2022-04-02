@@ -13,5 +13,7 @@
         public string Password { get; set; }
 
         public string RedirectUri { get; set; }
+
+        public string RefreshToken { get; set; }
     }
 }

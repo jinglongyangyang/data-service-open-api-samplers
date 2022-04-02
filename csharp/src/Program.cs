@@ -10,22 +10,15 @@ namespace UiPath.DataService.Samples
     {
         static async Task Main(string[] args)
         {
-            var dataServiceUrl = "https://cloud.uipath.com/entity/hr/dataservice_/api";
-            // This sample only supports login with email
-            var tokenProvider = new OpenApiTokenProvider(dataServiceUrl, new OpenApiCredentials()
-            {
-                ClientId = "", // external app id
-                ClientSecret = "", // external app secret
-                Email = "", // automation cloud user
-                Password = "", // automation cloud password
-                RedirectUri = "", // Redirect uri
-                Scope = "DataService.Schema.Read DataService.Data.Read DataService.Data.Write offline_access", //Space separated scopes, offline_access is for getting refresh token
-            });
-            var accessToken = await tokenProvider.GetAccessTokenAsync();
+            var dataServiceUrl = "https://cloud.uipath.com/vz/vz/dataservice_/api";
+
+            var accessToken = await GetTokenByRefreshToken(dataServiceUrl, "");
+            //var accessToken = await GetTokenByUserCredentials(dataServiceUrl);
             Console.WriteLine($"Access token [{accessToken.AccessToken}]");
             Console.WriteLine($"Refresh token [{accessToken.RefreshToken}]");
             Console.WriteLine($"Scope[{accessToken.Scope}]");
             Console.WriteLine($"ExpiresIn [{accessToken.ExpiresIn}] seconds");
+
 
             var client = new DataServiceOpenApiClient(new HttpClient(new TokenAuthenticationHandler(accessToken.AccessToken))) { BaseUrl = dataServiceUrl };
 
@@ -39,10 +32,37 @@ namespace UiPath.DataService.Samples
             Console.WriteLine(movie.Id);
         }
 
+        private static async Task<OpenApiAccessToken> GetTokenByRefreshToken(string dataServiceUrl)
+        {
+            // This sample only supports login with email
+            var tokenProvider = new OpenApiTokenProvider(dataServiceUrl, new OpenApiCredentials()
+            {
+                ClientId = "", // external app id
+                ClientSecret = "", // external app secret
+                RefreshToken = "", // refresh token
+            });
+            return await tokenProvider.GetAccessTokenByRefreshTokenAsync();
+        }
+
+        private static async Task<OpenApiAccessToken> GetTokenByUserCredentials(string dataServiceUrl)
+        {
+            // This sample only supports login with email
+            var tokenProvider = new OpenApiTokenProvider(dataServiceUrl, new OpenApiCredentials()
+            {
+                ClientId = "", // external app id
+                ClientSecret = "", // external app secret
+                Email = "", // automation cloud user
+                Password = "", // automation cloud password
+                RedirectUri = "", // Redirect uri
+                Scope = "DataService.Schema.Read DataService.Data.Read DataService.Data.Write offline_access", //Space separated scopes, offline_access is for getting refresh token
+            });
+            return await tokenProvider.GetAccessTokenByUserCredentialsAsync();
+        }
+
         private static async Task<Actor> GetOrCreateActor(DataServiceOpenApiClient client, string first, string last)
         {
             ICollection<QueryFilter> filters = new List<QueryFilter>() { QueryFilter(nameof(Actor.First), first), QueryFilter(nameof(Actor.Last), last) };
-            var request = new QueryRequest() { FilterGroup = new QueryFilterGroup() { QueryFilters = filters } };
+            var request = new QueryRequest() { FilterGroup = new QueryFilterGroup() { QueryFilters = filters, LogicalOperator = 1 } };
             var response = await client.Query_ActorAsync(2, request);
             var actors = response.Value;
             if (actors == null || actors.Count == 0)
@@ -78,7 +98,7 @@ namespace UiPath.DataService.Samples
 
         private static QueryFilter QueryFilter(string field, string value)
         {
-            return new QueryFilter() { FieldName = field, Value = value };
+            return new QueryFilter() { FieldName = field, Value = value, Operator = "=" };
         }
     }
 }

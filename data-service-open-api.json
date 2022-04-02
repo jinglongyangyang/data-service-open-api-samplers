@@ -2,10 +2,4234 @@
   "openapi": "3.0.0",
   "info": {
     "version": "1.0.0",
-    "title": "Entity Store imdb",
-    "description": "OpenAPI Specification for imdb entity store."
+    "title": "Entity Store vz",
+    "description": "OpenAPI Specification for vz entity store."
   },
   "paths": {
+    "/EntityService/Cases/read": {
+      "get": {
+        "tags": [
+          "Cases"
+        ],
+        "description": "Reads all Cases records.",
+        "operationId": "Get Cases records",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start",
+            "description": "(Optional) Specifies the number of records to skip before starting to return records from the query. Can be used along with limit property to implement pagination. Default value is 0 if not specified. The sort order is based on Id field.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "0"
+            },
+            "required": false
+          },
+          {
+            "name": "limit",
+            "description": "(Optional) Specifies the maximum number of records to read from service. Can be used along with start property to implement pagination. Default value is 100 if not specified. The maximum value can be 1000.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "20"
+            },
+            "required": false
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CasesQueryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Cases/read/{id}": {
+      "get": {
+        "tags": [
+          "Cases"
+        ],
+        "description": "Retrieves a single Cases record by Id.",
+        "operationId": "Get Cases",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cases"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Cases/query": {
+      "post": {
+        "tags": [
+          "Cases"
+        ],
+        "description": "Query Cases records.",
+        "operationId": "Query Cases",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CasesQueryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Cases/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Cases"
+        ],
+        "description": "Deletes an existing Cases record.",
+        "operationId": "Delete Cases",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Boolean"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Cases/update/{id}": {
+      "post": {
+        "tags": [
+          "Cases"
+        ],
+        "description": "Updates an existing Cases record.",
+        "operationId": "Update Cases",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cases"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cases"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Cases/insert": {
+      "post": {
+        "tags": [
+          "Cases"
+        ],
+        "description": "Creates a new Cases record.",
+        "operationId": "Add Cases",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cases"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cases"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Cases/insert-batch": {
+      "post": {
+        "tags": [
+          "Cases"
+        ],
+        "description": "Creates multiple new Cases records in a batch.",
+        "operationId": "Batch Add Cases",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          },
+          {
+            "name": "failOnFirst",
+            "description": "(Optional) Specifies if Data Service should stop processing the remaining records when a record fails to process. If set to true, Data Service will stop processing records on the first failure. This property only supports Boolean values (true, false).",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "format": "string",
+              "default": "false"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Cases"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CasesBatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Cases/update-batch": {
+      "post": {
+        "tags": [
+          "Cases"
+        ],
+        "description": "Updates multiple existing Cases records in a batch.",
+        "operationId": "Batch Update Cases",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          },
+          {
+            "name": "failOnFirst",
+            "description": "(Optional) Specifies if Data Service should stop processing the remaining records when a record fails to process. If set to true, Data Service will stop processing records on the first failure. This property only supports Boolean values (true, false).",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "format": "string",
+              "default": "false"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Cases"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CasesBatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Cases/delete-batch": {
+      "post": {
+        "tags": [
+          "Cases"
+        ],
+        "description": "Deletes multiple existing Cases records in a batch.",
+        "operationId": "Batch Delete Cases",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "failOnFirst",
+            "description": "(Optional) Specifies if Data Service should stop processing the remaining records when a record fails to process. If set to true, Data Service will stop processing records on the first failure. This property only supports Boolean values (true, false).",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "format": "string",
+              "default": "false"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CasesBatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/Attachment/Cases/{recordId}/{fieldName}": {
+      "get": {
+        "tags": [
+          "Cases"
+        ],
+        "description": "Downloads file from the specified field of an existing Cases record.",
+        "operationId": "Download file from Cases",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "fieldName",
+            "description": "The name of the File field to modify for the specified record in entity $Cases. The name has to be a valid field and is case-sensitive.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "default": null
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Cases"
+        ],
+        "description": "Uploads file to the specified field of an existing Cases record.",
+        "operationId": "Upload file to Cases",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "fieldName",
+            "description": "The name of the File field to modify for the specified record in entity $Cases. The name has to be a valid field and is case-sensitive.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cases"
+        ],
+        "description": "Deletes file from the specified field of an existing Cases record.",
+        "operationId": "Delete file from Cases",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "fieldName",
+            "description": "The name of the File field to modify for the specified record in entity $Cases. The name has to be a valid field and is case-sensitive.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Events/read": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "description": "Reads all Events records.",
+        "operationId": "Get Events records",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start",
+            "description": "(Optional) Specifies the number of records to skip before starting to return records from the query. Can be used along with limit property to implement pagination. Default value is 0 if not specified. The sort order is based on Id field.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "0"
+            },
+            "required": false
+          },
+          {
+            "name": "limit",
+            "description": "(Optional) Specifies the maximum number of records to read from service. Can be used along with start property to implement pagination. Default value is 100 if not specified. The maximum value can be 1000.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "20"
+            },
+            "required": false
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventsQueryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Events/read/{id}": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "description": "Retrieves a single Events record by Id.",
+        "operationId": "Get Events",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Events"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Events/query": {
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "description": "Query Events records.",
+        "operationId": "Query Events",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventsQueryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Events/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Events"
+        ],
+        "description": "Deletes an existing Events record.",
+        "operationId": "Delete Events",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Boolean"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Events/update/{id}": {
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "description": "Updates an existing Events record.",
+        "operationId": "Update Events",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Events"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Events"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Events/insert": {
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "description": "Creates a new Events record.",
+        "operationId": "Add Events",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Events"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Events"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Events/insert-batch": {
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "description": "Creates multiple new Events records in a batch.",
+        "operationId": "Batch Add Events",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          },
+          {
+            "name": "failOnFirst",
+            "description": "(Optional) Specifies if Data Service should stop processing the remaining records when a record fails to process. If set to true, Data Service will stop processing records on the first failure. This property only supports Boolean values (true, false).",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "format": "string",
+              "default": "false"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Events"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventsBatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Events/update-batch": {
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "description": "Updates multiple existing Events records in a batch.",
+        "operationId": "Batch Update Events",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          },
+          {
+            "name": "failOnFirst",
+            "description": "(Optional) Specifies if Data Service should stop processing the remaining records when a record fails to process. If set to true, Data Service will stop processing records on the first failure. This property only supports Boolean values (true, false).",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "format": "string",
+              "default": "false"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Events"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventsBatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Events/delete-batch": {
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "description": "Deletes multiple existing Events records in a batch.",
+        "operationId": "Batch Delete Events",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "failOnFirst",
+            "description": "(Optional) Specifies if Data Service should stop processing the remaining records when a record fails to process. If set to true, Data Service will stop processing records on the first failure. This property only supports Boolean values (true, false).",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "format": "string",
+              "default": "false"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventsBatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/Attachment/Events/{recordId}/{fieldName}": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "description": "Downloads file from the specified field of an existing Events record.",
+        "operationId": "Download file from Events",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "fieldName",
+            "description": "The name of the File field to modify for the specified record in entity $Events. The name has to be a valid field and is case-sensitive.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "default": null
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "description": "Uploads file to the specified field of an existing Events record.",
+        "operationId": "Upload file to Events",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "fieldName",
+            "description": "The name of the File field to modify for the specified record in entity $Events. The name has to be a valid field and is case-sensitive.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Events"
+        ],
+        "description": "Deletes file from the specified field of an existing Events record.",
+        "operationId": "Delete file from Events",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "fieldName",
+            "description": "The name of the File field to modify for the specified record in entity $Events. The name has to be a valid field and is case-sensitive.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/SystemUser/read": {
+      "get": {
+        "tags": [
+          "SystemUser"
+        ],
+        "description": "Reads all SystemUser records.",
+        "operationId": "Get SystemUser records",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start",
+            "description": "(Optional) Specifies the number of records to skip before starting to return records from the query. Can be used along with limit property to implement pagination. Default value is 0 if not specified. The sort order is based on Id field.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "0"
+            },
+            "required": false
+          },
+          {
+            "name": "limit",
+            "description": "(Optional) Specifies the maximum number of records to read from service. Can be used along with start property to implement pagination. Default value is 100 if not specified. The maximum value can be 1000.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "20"
+            },
+            "required": false
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemUserQueryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/SystemUser/read/{id}": {
+      "get": {
+        "tags": [
+          "SystemUser"
+        ],
+        "description": "Retrieves a single SystemUser record by Id.",
+        "operationId": "Get SystemUser",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemUser"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/SystemUser/query": {
+      "post": {
+        "tags": [
+          "SystemUser"
+        ],
+        "description": "Query SystemUser records.",
+        "operationId": "Query SystemUser",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemUserQueryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Weather/read": {
+      "get": {
+        "tags": [
+          "Weather"
+        ],
+        "description": "Reads all Weather records.",
+        "operationId": "Get Weather records",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start",
+            "description": "(Optional) Specifies the number of records to skip before starting to return records from the query. Can be used along with limit property to implement pagination. Default value is 0 if not specified. The sort order is based on Id field.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "0"
+            },
+            "required": false
+          },
+          {
+            "name": "limit",
+            "description": "(Optional) Specifies the maximum number of records to read from service. Can be used along with start property to implement pagination. Default value is 100 if not specified. The maximum value can be 1000.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "20"
+            },
+            "required": false
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WeatherQueryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Weather/read/{id}": {
+      "get": {
+        "tags": [
+          "Weather"
+        ],
+        "description": "Retrieves a single Weather record by Id.",
+        "operationId": "Get Weather",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Weather"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Weather/query": {
+      "post": {
+        "tags": [
+          "Weather"
+        ],
+        "description": "Query Weather records.",
+        "operationId": "Query Weather",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WeatherQueryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Weather/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Weather"
+        ],
+        "description": "Deletes an existing Weather record.",
+        "operationId": "Delete Weather",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Boolean"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Weather/update/{id}": {
+      "post": {
+        "tags": [
+          "Weather"
+        ],
+        "description": "Updates an existing Weather record.",
+        "operationId": "Update Weather",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Weather"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Weather"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Weather/insert": {
+      "post": {
+        "tags": [
+          "Weather"
+        ],
+        "description": "Creates a new Weather record.",
+        "operationId": "Add Weather",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Weather"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Weather"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Weather/insert-batch": {
+      "post": {
+        "tags": [
+          "Weather"
+        ],
+        "description": "Creates multiple new Weather records in a batch.",
+        "operationId": "Batch Add Weather",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          },
+          {
+            "name": "failOnFirst",
+            "description": "(Optional) Specifies if Data Service should stop processing the remaining records when a record fails to process. If set to true, Data Service will stop processing records on the first failure. This property only supports Boolean values (true, false).",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "format": "string",
+              "default": "false"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Weather"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WeatherBatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Weather/update-batch": {
+      "post": {
+        "tags": [
+          "Weather"
+        ],
+        "description": "Updates multiple existing Weather records in a batch.",
+        "operationId": "Batch Update Weather",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          },
+          {
+            "name": "failOnFirst",
+            "description": "(Optional) Specifies if Data Service should stop processing the remaining records when a record fails to process. If set to true, Data Service will stop processing records on the first failure. This property only supports Boolean values (true, false).",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "format": "string",
+              "default": "false"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Weather"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WeatherBatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/Weather/delete-batch": {
+      "post": {
+        "tags": [
+          "Weather"
+        ],
+        "description": "Deletes multiple existing Weather records in a batch.",
+        "operationId": "Batch Delete Weather",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "failOnFirst",
+            "description": "(Optional) Specifies if Data Service should stop processing the remaining records when a record fails to process. If set to true, Data Service will stop processing records on the first failure. This property only supports Boolean values (true, false).",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "format": "string",
+              "default": "false"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WeatherBatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/Attachment/Weather/{recordId}/{fieldName}": {
+      "get": {
+        "tags": [
+          "Weather"
+        ],
+        "description": "Downloads file from the specified field of an existing Weather record.",
+        "operationId": "Download file from Weather",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "fieldName",
+            "description": "The name of the File field to modify for the specified record in entity $Weather. The name has to be a valid field and is case-sensitive.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "default": null
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Weather"
+        ],
+        "description": "Uploads file to the specified field of an existing Weather record.",
+        "operationId": "Upload file to Weather",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "fieldName",
+            "description": "The name of the File field to modify for the specified record in entity $Weather. The name has to be a valid field and is case-sensitive.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Weather"
+        ],
+        "description": "Deletes file from the specified field of an existing Weather record.",
+        "operationId": "Delete file from Weather",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "fieldName",
+            "description": "The name of the File field to modify for the specified record in entity $Weather. The name has to be a valid field and is case-sensitive.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/BondMaster/read": {
+      "get": {
+        "tags": [
+          "BondMaster"
+        ],
+        "description": "Reads all BondMaster records.",
+        "operationId": "Get BondMaster records",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start",
+            "description": "(Optional) Specifies the number of records to skip before starting to return records from the query. Can be used along with limit property to implement pagination. Default value is 0 if not specified. The sort order is based on Id field.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "0"
+            },
+            "required": false
+          },
+          {
+            "name": "limit",
+            "description": "(Optional) Specifies the maximum number of records to read from service. Can be used along with start property to implement pagination. Default value is 100 if not specified. The maximum value can be 1000.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "20"
+            },
+            "required": false
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BondMasterQueryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/BondMaster/read/{id}": {
+      "get": {
+        "tags": [
+          "BondMaster"
+        ],
+        "description": "Retrieves a single BondMaster record by Id.",
+        "operationId": "Get BondMaster",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BondMaster"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/BondMaster/query": {
+      "post": {
+        "tags": [
+          "BondMaster"
+        ],
+        "description": "Query BondMaster records.",
+        "operationId": "Query BondMaster",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BondMasterQueryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/BondMaster/delete/{id}": {
+      "delete": {
+        "tags": [
+          "BondMaster"
+        ],
+        "description": "Deletes an existing BondMaster record.",
+        "operationId": "Delete BondMaster",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Boolean"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/BondMaster/update/{id}": {
+      "post": {
+        "tags": [
+          "BondMaster"
+        ],
+        "description": "Updates an existing BondMaster record.",
+        "operationId": "Update BondMaster",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BondMaster"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BondMaster"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/BondMaster/insert": {
+      "post": {
+        "tags": [
+          "BondMaster"
+        ],
+        "description": "Creates a new BondMaster record.",
+        "operationId": "Add BondMaster",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BondMaster"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BondMaster"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/BondMaster/insert-batch": {
+      "post": {
+        "tags": [
+          "BondMaster"
+        ],
+        "description": "Creates multiple new BondMaster records in a batch.",
+        "operationId": "Batch Add BondMaster",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          },
+          {
+            "name": "failOnFirst",
+            "description": "(Optional) Specifies if Data Service should stop processing the remaining records when a record fails to process. If set to true, Data Service will stop processing records on the first failure. This property only supports Boolean values (true, false).",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "format": "string",
+              "default": "false"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/BondMaster"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BondMasterBatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/BondMaster/update-batch": {
+      "post": {
+        "tags": [
+          "BondMaster"
+        ],
+        "description": "Updates multiple existing BondMaster records in a batch.",
+        "operationId": "Batch Update BondMaster",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          },
+          {
+            "name": "failOnFirst",
+            "description": "(Optional) Specifies if Data Service should stop processing the remaining records when a record fails to process. If set to true, Data Service will stop processing records on the first failure. This property only supports Boolean values (true, false).",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "format": "string",
+              "default": "false"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/BondMaster"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BondMasterBatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/BondMaster/delete-batch": {
+      "post": {
+        "tags": [
+          "BondMaster"
+        ],
+        "description": "Deletes multiple existing BondMaster records in a batch.",
+        "operationId": "Batch Delete BondMaster",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "failOnFirst",
+            "description": "(Optional) Specifies if Data Service should stop processing the remaining records when a record fails to process. If set to true, Data Service will stop processing records on the first failure. This property only supports Boolean values (true, false).",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "format": "string",
+              "default": "false"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BondMasterBatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/Attachment/BondMaster/{recordId}/{fieldName}": {
+      "get": {
+        "tags": [
+          "BondMaster"
+        ],
+        "description": "Downloads file from the specified field of an existing BondMaster record.",
+        "operationId": "Download file from BondMaster",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "fieldName",
+            "description": "The name of the File field to modify for the specified record in entity $BondMaster. The name has to be a valid field and is case-sensitive.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "default": null
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "BondMaster"
+        ],
+        "description": "Uploads file to the specified field of an existing BondMaster record.",
+        "operationId": "Upload file to BondMaster",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "fieldName",
+            "description": "The name of the File field to modify for the specified record in entity $BondMaster. The name has to be a valid field and is case-sensitive.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "BondMaster"
+        ],
+        "description": "Deletes file from the specified field of an existing BondMaster record.",
+        "operationId": "Delete file from BondMaster",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "fieldName",
+            "description": "The name of the File field to modify for the specified record in entity $BondMaster. The name has to be a valid field and is case-sensitive.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/BondDetail/read": {
+      "get": {
+        "tags": [
+          "BondDetail"
+        ],
+        "description": "Reads all BondDetail records.",
+        "operationId": "Get BondDetail records",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start",
+            "description": "(Optional) Specifies the number of records to skip before starting to return records from the query. Can be used along with limit property to implement pagination. Default value is 0 if not specified. The sort order is based on Id field.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "0"
+            },
+            "required": false
+          },
+          {
+            "name": "limit",
+            "description": "(Optional) Specifies the maximum number of records to read from service. Can be used along with start property to implement pagination. Default value is 100 if not specified. The maximum value can be 1000.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "20"
+            },
+            "required": false
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BondDetailQueryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/BondDetail/read/{id}": {
+      "get": {
+        "tags": [
+          "BondDetail"
+        ],
+        "description": "Retrieves a single BondDetail record by Id.",
+        "operationId": "Get BondDetail",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BondDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/BondDetail/query": {
+      "post": {
+        "tags": [
+          "BondDetail"
+        ],
+        "description": "Query BondDetail records.",
+        "operationId": "Query BondDetail",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BondDetailQueryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/BondDetail/delete/{id}": {
+      "delete": {
+        "tags": [
+          "BondDetail"
+        ],
+        "description": "Deletes an existing BondDetail record.",
+        "operationId": "Delete BondDetail",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Boolean"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/BondDetail/update/{id}": {
+      "post": {
+        "tags": [
+          "BondDetail"
+        ],
+        "description": "Updates an existing BondDetail record.",
+        "operationId": "Update BondDetail",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BondDetail"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BondDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/BondDetail/insert": {
+      "post": {
+        "tags": [
+          "BondDetail"
+        ],
+        "description": "Creates a new BondDetail record.",
+        "operationId": "Add BondDetail",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BondDetail"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BondDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/BondDetail/insert-batch": {
+      "post": {
+        "tags": [
+          "BondDetail"
+        ],
+        "description": "Creates multiple new BondDetail records in a batch.",
+        "operationId": "Batch Add BondDetail",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          },
+          {
+            "name": "failOnFirst",
+            "description": "(Optional) Specifies if Data Service should stop processing the remaining records when a record fails to process. If set to true, Data Service will stop processing records on the first failure. This property only supports Boolean values (true, false).",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "format": "string",
+              "default": "false"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/BondDetail"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BondDetailBatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/BondDetail/update-batch": {
+      "post": {
+        "tags": [
+          "BondDetail"
+        ],
+        "description": "Updates multiple existing BondDetail records in a batch.",
+        "operationId": "Batch Update BondDetail",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          },
+          {
+            "name": "failOnFirst",
+            "description": "(Optional) Specifies if Data Service should stop processing the remaining records when a record fails to process. If set to true, Data Service will stop processing records on the first failure. This property only supports Boolean values (true, false).",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "format": "string",
+              "default": "false"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/BondDetail"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BondDetailBatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/EntityService/BondDetail/delete-batch": {
+      "post": {
+        "tags": [
+          "BondDetail"
+        ],
+        "description": "Deletes multiple existing BondDetail records in a batch.",
+        "operationId": "Batch Delete BondDetail",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "failOnFirst",
+            "description": "(Optional) Specifies if Data Service should stop processing the remaining records when a record fails to process. If set to true, Data Service will stop processing records on the first failure. This property only supports Boolean values (true, false).",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "format": "string",
+              "default": "false"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BondDetailBatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/Attachment/BondDetail/{recordId}/{fieldName}": {
+      "get": {
+        "tags": [
+          "BondDetail"
+        ],
+        "description": "Downloads file from the specified field of an existing BondDetail record.",
+        "operationId": "Download file from BondDetail",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Read"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "fieldName",
+            "description": "The name of the File field to modify for the specified record in entity $BondDetail. The name has to be a valid field and is case-sensitive.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "default": null
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "BondDetail"
+        ],
+        "description": "Uploads file to the specified field of an existing BondDetail record.",
+        "operationId": "Upload file to BondDetail",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "fieldName",
+            "description": "The name of the File field to modify for the specified record in entity $BondDetail. The name has to be a valid field and is case-sensitive.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "BondDetail"
+        ],
+        "description": "Deletes file from the specified field of an existing BondDetail record.",
+        "operationId": "Delete file from BondDetail",
+        "security": [
+          {
+            "bearerAuth": [
+              "DataService.Data.Write"
+            ]
+          },
+          {
+            "oauth2": [
+              "DataService.Data.Write"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "description": "The Id of the record to retrieve/modify from Data Service.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "fieldName",
+            "description": "The name of the File field to modify for the specified record in entity $BondDetail. The name has to be a valid field and is case-sensitive.",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "default": null
+            },
+            "required": true
+          },
+          {
+            "name": "expansionLevel",
+            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "2"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
     "/EntityService/Actor/read": {
       "get": {
         "tags": [
@@ -1615,214 +5839,57 @@
           }
         }
       }
-    },
-    "/EntityService/SystemUser/read": {
-      "get": {
-        "tags": [
-          "SystemUser"
-        ],
-        "description": "Reads all SystemUser records.",
-        "operationId": "Get SystemUser records",
-        "security": [
-          {
-            "bearerAuth": [
-              "DataService.Data.Read"
-            ]
-          },
-          {
-            "oauth2": [
-              "DataService.Data.Read"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "name": "start",
-            "description": "(Optional) Specifies the number of records to skip before starting to return records from the query. Can be used along with limit property to implement pagination. Default value is 0 if not specified. The sort order is based on Id field.",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": "0"
-            },
-            "required": false
-          },
-          {
-            "name": "limit",
-            "description": "(Optional) Specifies the maximum number of records to read from service. Can be used along with start property to implement pagination. Default value is 100 if not specified. The maximum value can be 1000.",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": "20"
-            },
-            "required": false
-          },
-          {
-            "name": "expansionLevel",
-            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": "2"
-            },
-            "required": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SystemUserQueryResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/UnauthorizedError"
-          },
-          "403": {
-            "$ref": "#/components/responses/ForbiddenError"
-          }
-        }
-      }
-    },
-    "/EntityService/SystemUser/read/{id}": {
-      "get": {
-        "tags": [
-          "SystemUser"
-        ],
-        "description": "Retrieves a single SystemUser record by Id.",
-        "operationId": "Get SystemUser",
-        "security": [
-          {
-            "bearerAuth": [
-              "DataService.Data.Read"
-            ]
-          },
-          {
-            "oauth2": [
-              "DataService.Data.Read"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "description": "The Id of the record to retrieve/modify from Data Service.",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "default": null
-            },
-            "required": true
-          },
-          {
-            "name": "expansionLevel",
-            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": "2"
-            },
-            "required": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SystemUser"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/UnauthorizedError"
-          },
-          "403": {
-            "$ref": "#/components/responses/ForbiddenError"
-          }
-        }
-      }
-    },
-    "/EntityService/SystemUser/query": {
-      "post": {
-        "tags": [
-          "SystemUser"
-        ],
-        "description": "Query SystemUser records.",
-        "operationId": "Query SystemUser",
-        "security": [
-          {
-            "bearerAuth": [
-              "DataService.Data.Read"
-            ]
-          },
-          {
-            "oauth2": [
-              "DataService.Data.Read"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "name": "expansionLevel",
-            "description": "(Optional) Specifies the depth of related records to be retrieved from the service. This property supports values from 1 to 3.",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": "2"
-            },
-            "required": false
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/QueryRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SystemUserQueryResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/UnauthorizedError"
-          },
-          "403": {
-            "$ref": "#/components/responses/ForbiddenError"
-          }
-        }
-      }
     }
   },
   "servers": [
     {
-      "url": "https://alpha.uipath.com/entity/imdb/dataservice_/api"
+      "url": "https://cloud.uipath.com/vz/vz/dataservice_/api"
     }
   ],
   "components": {
     "schemas": {
+      "UserType": {
+        "type": "integer",
+        "x-uipath-dataservice-type": "choiceset",
+        "enum": [
+          1,
+          2,
+          0
+        ],
+        "x-enum-varnames": [
+          "Group",
+          "Robot",
+          "User"
+        ]
+      },
+      "BondType": {
+        "type": "integer",
+        "x-uipath-dataservice-type": "choiceset",
+        "enum": [
+          11,
+          9,
+          10
+        ],
+        "x-enum-varnames": [
+          "Bond",
+          "Public",
+          "Corporate"
+        ]
+      },
+      "BondScale": {
+        "type": "integer",
+        "x-uipath-dataservice-type": "choiceset",
+        "enum": [
+          2,
+          1,
+          0
+        ],
+        "x-enum-varnames": [
+          "Middle",
+          "Large",
+          "Small"
+        ]
+      },
       "Genre": {
         "type": "integer",
         "x-uipath-dataservice-type": "choiceset",
@@ -1887,24 +5954,15 @@
           "R"
         ]
       },
-      "UserType": {
-        "type": "integer",
-        "x-uipath-dataservice-type": "choiceset",
-        "enum": [
-          1,
-          2,
-          0
-        ],
-        "x-enum-varnames": [
-          "Group",
-          "Robot",
-          "User"
-        ]
-      },
-      "Actor": {
+      "Cases": {
         "type": "object",
         "x-uipath-dataservice-type": "entity",
         "properties": {
+          "CaseID": {
+            "type": "string",
+            "format": "",
+            "nullable": false
+          },
           "CreatedBy": {
             "type": "string",
             "format": "uuid",
@@ -1915,23 +5973,10 @@
             "format": "date-time",
             "nullable": false
           },
-          "First": {
-            "type": "string",
-            "format": "",
-            "nullable": true
-          },
           "Id": {
             "type": "string",
             "format": "uuid",
             "nullable": false
-          },
-          "Last": {
-            "type": "string",
-            "format": "",
-            "nullable": true
-          },
-          "Photo": {
-            "$ref": "#/components/schemas/EntityAttachment"
           },
           "UpdatedBy": {
             "type": "string",
@@ -1945,9 +5990,10 @@
           }
         },
         "required": [
+          "CaseID"
         ]
       },
-      "ActorQueryResponse": {
+      "CasesQueryResponse": {
         "type": "object",
         "properties": {
           "TotalRecordCount": {
@@ -1958,18 +6004,18 @@
           "Value": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Actor"
+              "$ref": "#/components/schemas/Cases"
             }
           }
         }
       },
-      "ActorBatchResponse": {
+      "CasesBatchResponse": {
         "type": "object",
         "properties": {
           "successRecords": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Actor"
+              "$ref": "#/components/schemas/Cases"
             }
           },
           "failureRecords": {
@@ -1979,20 +6025,25 @@
                 "type": "string"
               },
               "record": {
-                "$ref": "#/components/schemas/Actor"
+                "$ref": "#/components/schemas/Cases"
               }
             }
           }
         }
       },
-      "Movie": {
+      "Events": {
         "type": "object",
         "x-uipath-dataservice-type": "entity",
         "properties": {
-          "Comments": {
+          "Activity": {
             "type": "string",
             "format": "",
-            "nullable": true
+            "nullable": false
+          },
+          "CaseID": {
+            "type": "string",
+            "format": "",
+            "nullable": false
           },
           "CreatedBy": {
             "type": "string",
@@ -2004,59 +6055,15 @@
             "format": "date-time",
             "nullable": false
           },
-          "Director": {
-            "$ref": "#/components/schemas/Actor"
-          },
-          "Genre": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Genre"
-            }
+          "EventEnd": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": false
           },
           "Id": {
             "type": "string",
             "format": "uuid",
             "nullable": false
-          },
-          "ImdbId": {
-            "type": "string",
-            "format": "",
-            "nullable": true
-          },
-          "IsSilent": {
-            "type": "boolean",
-            "format": "",
-            "nullable": true
-          },
-          "LeadActor": {
-            "$ref": "#/components/schemas/Actor"
-          },
-          "LeadActress": {
-            "$ref": "#/components/schemas/Actor"
-          },
-          "Link": {
-            "type": "string",
-            "format": "",
-            "nullable": true
-          },
-          "Name": {
-            "type": "string",
-            "format": "",
-            "nullable": false
-          },
-          "Poster": {
-            "$ref": "#/components/schemas/EntityAttachment"
-          },
-          "Rating": {
-            "$ref": "#/components/schemas/Rating"
-          },
-          "Score": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "Storyline": {
-            "$ref": "#/components/schemas/EntityAttachment"
           },
           "UpdatedBy": {
             "type": "string",
@@ -2067,18 +6074,15 @@
             "type": "string",
             "format": "date-time",
             "nullable": true
-          },
-          "Year": {
-            "type": "string",
-            "format": "date",
-            "nullable": true
           }
         },
         "required": [
-          "Name"
+          "Activity",
+          "CaseID",
+          "EventEnd"
         ]
       },
-      "MovieQueryResponse": {
+      "EventsQueryResponse": {
         "type": "object",
         "properties": {
           "TotalRecordCount": {
@@ -2089,18 +6093,18 @@
           "Value": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Movie"
+              "$ref": "#/components/schemas/Events"
             }
           }
         }
       },
-      "MovieBatchResponse": {
+      "EventsBatchResponse": {
         "type": "object",
         "properties": {
           "successRecords": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Movie"
+              "$ref": "#/components/schemas/Events"
             }
           },
           "failureRecords": {
@@ -2110,7 +6114,7 @@
                 "type": "string"
               },
               "record": {
-                "$ref": "#/components/schemas/Movie"
+                "$ref": "#/components/schemas/Events"
               }
             }
           }
@@ -2188,6 +6192,502 @@
               },
               "record": {
                 "$ref": "#/components/schemas/SystemUser"
+              }
+            }
+          }
+        }
+      },
+      "Weather": {
+        "type": "object",
+        "x-uipath-dataservice-type": "entity",
+        "properties": {
+          "CreatedBy": {
+            "$ref": "#/components/schemas/SystemUser"
+          },
+          "CreateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": false
+          },
+          "DateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "Id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": false
+          },
+          "Location": {
+            "type": "string",
+            "format": "",
+            "nullable": true
+          },
+          "ScreenShot": {
+            "$ref": "#/components/schemas/EntityAttachment"
+          },
+          "Temperature": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "UpdatedBy": {
+            "$ref": "#/components/schemas/SystemUser"
+          },
+          "UpdateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "WeatherStatus": {
+            "type": "string",
+            "format": "",
+            "nullable": true
+          }
+        }
+      },
+      "WeatherQueryResponse": {
+        "type": "object",
+        "properties": {
+          "TotalRecordCount": {
+            "description": "The total number of records matching the specified query filters in the service. Can be used with start and limit properties of QueryRequest to implement pagination.",
+            "type": "integer",
+            "format": "int64"
+          },
+          "Value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Weather"
+            }
+          }
+        }
+      },
+      "WeatherBatchResponse": {
+        "type": "object",
+        "properties": {
+          "successRecords": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Weather"
+            }
+          },
+          "failureRecords": {
+            "type": "object",
+            "properties": {
+              "error": {
+                "type": "string"
+              },
+              "record": {
+                "$ref": "#/components/schemas/Weather"
+              }
+            }
+          }
+        }
+      },
+      "BondMaster": {
+        "type": "object",
+        "x-uipath-dataservice-type": "entity",
+        "properties": {
+          "CreatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": false
+          },
+          "CreateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": false
+          },
+          "Id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": false
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "UpdateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "TradingDay": {
+            "type": "boolean",
+            "format": "",
+            "nullable": true
+          },
+          "Quantity": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "Date": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "File": {
+            "$ref": "#/components/schemas/EntityAttachment"
+          }
+        }
+      },
+      "BondMasterQueryResponse": {
+        "type": "object",
+        "properties": {
+          "TotalRecordCount": {
+            "description": "The total number of records matching the specified query filters in the service. Can be used with start and limit properties of QueryRequest to implement pagination.",
+            "type": "integer",
+            "format": "int64"
+          },
+          "Value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BondMaster"
+            }
+          }
+        }
+      },
+      "BondMasterBatchResponse": {
+        "type": "object",
+        "properties": {
+          "successRecords": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BondMaster"
+            }
+          },
+          "failureRecords": {
+            "type": "object",
+            "properties": {
+              "error": {
+                "type": "string"
+              },
+              "record": {
+                "$ref": "#/components/schemas/BondMaster"
+              }
+            }
+          }
+        }
+      },
+      "BondDetail": {
+        "type": "object",
+        "x-uipath-dataservice-type": "entity",
+        "properties": {
+          "CreatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": false
+          },
+          "CreateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": false
+          },
+          "Id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": false
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "UpdateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "BondName": {
+            "type": "string",
+            "format": "",
+            "nullable": true
+          },
+          "LinkDate": {
+            "$ref": "#/components/schemas/BondMaster"
+          },
+          "SingleChoice": {
+            "$ref": "#/components/schemas/BondScale"
+          },
+          "MultiChoice": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BondType"
+            }
+          },
+          "Item": {
+            "type": "string",
+            "format": "",
+            "nullable": true
+          },
+          "Quantity": {
+            "type": "number",
+            "format": "double",
+            "nullable": false
+          },
+          "MarketValue": {
+            "type": "number",
+            "format": "double",
+            "nullable": false
+          },
+          "FaceValue": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "Date": {
+            "type": "string",
+            "format": "date",
+            "nullable": false
+          }
+        },
+        "required": [
+          "Quantity",
+          "MarketValue",
+          "Date"
+        ]
+      },
+      "BondDetailQueryResponse": {
+        "type": "object",
+        "properties": {
+          "TotalRecordCount": {
+            "description": "The total number of records matching the specified query filters in the service. Can be used with start and limit properties of QueryRequest to implement pagination.",
+            "type": "integer",
+            "format": "int64"
+          },
+          "Value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BondDetail"
+            }
+          }
+        }
+      },
+      "BondDetailBatchResponse": {
+        "type": "object",
+        "properties": {
+          "successRecords": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BondDetail"
+            }
+          },
+          "failureRecords": {
+            "type": "object",
+            "properties": {
+              "error": {
+                "type": "string"
+              },
+              "record": {
+                "$ref": "#/components/schemas/BondDetail"
+              }
+            }
+          }
+        }
+      },
+      "Actor": {
+        "type": "object",
+        "x-uipath-dataservice-type": "entity",
+        "properties": {
+          "CreatedBy": {
+            "$ref": "#/components/schemas/SystemUser"
+          },
+          "CreateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": false
+          },
+          "First": {
+            "type": "string",
+            "format": "",
+            "nullable": true
+          },
+          "Id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": false
+          },
+          "Last": {
+            "type": "string",
+            "format": "",
+            "nullable": true
+          },
+          "Photo": {
+            "$ref": "#/components/schemas/EntityAttachment"
+          },
+          "UpdatedBy": {
+            "$ref": "#/components/schemas/SystemUser"
+          },
+          "UpdateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "ActorQueryResponse": {
+        "type": "object",
+        "properties": {
+          "TotalRecordCount": {
+            "description": "The total number of records matching the specified query filters in the service. Can be used with start and limit properties of QueryRequest to implement pagination.",
+            "type": "integer",
+            "format": "int64"
+          },
+          "Value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Actor"
+            }
+          }
+        }
+      },
+      "ActorBatchResponse": {
+        "type": "object",
+        "properties": {
+          "successRecords": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Actor"
+            }
+          },
+          "failureRecords": {
+            "type": "object",
+            "properties": {
+              "error": {
+                "type": "string"
+              },
+              "record": {
+                "$ref": "#/components/schemas/Actor"
+              }
+            }
+          }
+        }
+      },
+      "Movie": {
+        "type": "object",
+        "x-uipath-dataservice-type": "entity",
+        "properties": {
+          "Comments": {
+            "type": "string",
+            "format": "",
+            "nullable": true
+          },
+          "CreatedBy": {
+            "$ref": "#/components/schemas/SystemUser"
+          },
+          "CreateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": false
+          },
+          "Director": {
+            "$ref": "#/components/schemas/Actor"
+          },
+          "Genre": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Genre"
+            }
+          },
+          "Id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": false
+          },
+          "ImdbId": {
+            "type": "string",
+            "format": "",
+            "nullable": true
+          },
+          "IsSilent": {
+            "type": "boolean",
+            "format": "",
+            "nullable": true
+          },
+          "LeadActor": {
+            "$ref": "#/components/schemas/Actor"
+          },
+          "LeadActress": {
+            "$ref": "#/components/schemas/Actor"
+          },
+          "Link": {
+            "type": "string",
+            "format": "",
+            "nullable": true
+          },
+          "Name": {
+            "type": "string",
+            "format": "",
+            "nullable": false
+          },
+          "Poster": {
+            "$ref": "#/components/schemas/EntityAttachment"
+          },
+          "Rating": {
+            "$ref": "#/components/schemas/Rating"
+          },
+          "Score": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "Storyline": {
+            "$ref": "#/components/schemas/EntityAttachment"
+          },
+          "UpdatedBy": {
+            "$ref": "#/components/schemas/SystemUser"
+          },
+          "UpdateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "Year": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          }
+        },
+        "required": [
+          "Name"
+        ]
+      },
+      "MovieQueryResponse": {
+        "type": "object",
+        "properties": {
+          "TotalRecordCount": {
+            "description": "The total number of records matching the specified query filters in the service. Can be used with start and limit properties of QueryRequest to implement pagination.",
+            "type": "integer",
+            "format": "int64"
+          },
+          "Value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Movie"
+            }
+          }
+        }
+      },
+      "MovieBatchResponse": {
+        "type": "object",
+        "properties": {
+          "successRecords": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Movie"
+            }
+          },
+          "failureRecords": {
+            "type": "object",
+            "properties": {
+              "error": {
+                "type": "string"
+              },
+              "record": {
+                "$ref": "#/components/schemas/Movie"
               }
             }
           }
@@ -2326,8 +6826,8 @@
         "type": "oauth2",
         "flows": {
           "authorizationCode": {
-            "tokenUrl": "https://alpha.uipath.com/identity_/connect/token",
-            "authorizationUrl": "https://alpha.uipath.com/identity_/connect/authorize",
+            "tokenUrl": "https://cloud.uipath.com/identity_/connect/token",
+            "authorizationUrl": "https://cloud.uipath.com/identity_/connect/authorize",
             "scopes": {
               "DataService.Schema.Read": "Entity Schema Read",
               "DataService.Data.Read": "Entity Data Read",

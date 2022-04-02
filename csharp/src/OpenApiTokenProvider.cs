@@ -19,7 +19,37 @@ namespace UiPath.DataService.Samples
             _identityUri = $"{uri.Scheme}://{uri.Host}/identity_";
         }
 
-        public async Task<OpenApiAccessToken> GetAccessTokenAsync()
+        public async Task<OpenApiAccessToken> GetAccessTokenByRefreshTokenAsync()
+        {
+            var tokenRequest = new RefreshTokenRequest()
+            {
+                ClientId = _credentials.ClientId,
+                ClientSecret = _credentials.ClientSecret,
+                RefreshToken = _credentials.RefreshToken,
+                Address = $"{_identityUri}/connect/token"
+            };
+            using var httpClient = new HttpClient();
+            var response = await httpClient.RequestRefreshTokenAsync(tokenRequest);
+            if (response.IsError)
+            {
+                if (response.Exception != null)
+                {
+                    throw new Exception("Fail to call Identity", response.Exception);
+                }
+
+                throw new Exception(response.Error);
+            }
+            return new OpenApiAccessToken()
+            {
+                AccessToken = response.AccessToken,
+                TokenType = response.TokenType,
+                Scope = response.Scope,
+                ExpiresIn = response.ExpiresIn,
+                RefreshToken = response.RefreshToken,
+            };
+        }
+
+        public async Task<OpenApiAccessToken> GetAccessTokenByUserCredentialsAsync()
         {
             var code = await LoginIntoAutomationCloud();
             var tokenRequest = new AuthorizationCodeTokenRequest()
