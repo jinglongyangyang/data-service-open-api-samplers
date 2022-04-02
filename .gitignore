@@ -103,6 +103,9 @@ dist
 # TernJS port file
 .tern-port
 
-csharp-confidential-app/src/.vs
-csharp-confidential-app/src/bin
-csharp-confidential-app/src/obj
+csharp-confidential-app/.vs
+csharp-confidential-app/bin
+csharp-confidential-app/obj
+csharp-non-confidential-app/.vs
+csharp-non-confidential-app/bin
+csharp-non-confidential-app/obj
